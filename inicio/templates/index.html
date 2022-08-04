@@ -7,6 +7,12 @@
     <title>Ola bom dia</title>
 </head>
 <body>
-    <h1> iremos descobrir seu signo</h1>
+    <h1>Horóscopo Diário</h1>
+    <p>Insira suas informações para exibirmos seu horóscopo de HOJE</p>
+    <form action="." method="post"> 
+        {% csrf_token %} 
+        {{ form.as_p }} 
+        <input type="submit" value="Enviar Formulário">
+    </form>
 </body>
 </html>
