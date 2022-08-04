@@ -1,6 +1,6 @@
 from ast import Pass
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 import http.client
 
 from inicio.forms import SignoForm
@@ -17,7 +17,9 @@ def index(request):
 
         if form.is_valid():
             form = SignoForm()
-            return HttpResponseRedirect('resultados/')
+            dia, hora = request.POST['day'], request.POST['time']
+            signo = achaSigno(dia, hora)
+            return HttpRequest('/resultados/')
         else:
             pass
 
@@ -25,8 +27,14 @@ def index(request):
         return render(request, 'index.html', context=context)
 
 
-def resultados(request, dados):
+def achaSigno(dia, hora):
+    return "Virgo"
+
+
+def resultados(request):
     conn = http.client.HTTPSConnection("sameer-kumar-aztro-v1.p.rapidapi.com")
+    corpo = request.body
+    print(corpo)
 
     headers = {
         'X-RapidAPI-Key': "3e67b48ba7msh2a79c2915744759p16c619jsn41ad5f3571a5",
